@@ -14,3 +14,10 @@ const initializeApp = async () => {
     await appStore.dispatch(authApi.endpoints.loadUser.initiate({},{forceRefetch:true}))
 }
 initializeApp();
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "../features/authSlice"
+export const appStore = configureStore({
+	reducer:{
+		auth: authReducer
+	}
+});
