@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { build } from "vite";
+// import { build } from "vite";
 import { Provider } from "react-redux";
 
 const COURSE_API = "http://localhost:8080/api/v1/course";
