@@ -246,9 +246,9 @@ export const editLecture = async (req, res) => {
 
        //update lecture
        if(lectureTitle) lecture.lectureTitle = lectureTitle;
-       if(videoInfo.videoUrl) lecture.videoUrl = videoUrl;
-       if(videoInfo.publicId) lecture.publicId = publicId;
-       if(isPreviewFree) lecture.isPreviewFree = isPreviewFree;
+       if(videoInfo?.videoUrl) lecture.videoUrl = videoUrl;
+       if(videoInfo?.publicId) lecture.publicId = publicId;
+       lecture.isPreviewFree = isPreviewFree;
 
        await lecture.save();
 
@@ -326,7 +326,7 @@ export const getLectureById = async (req, res) => {
 
 
 
-export const togglePubishCourse  =async(req,res) =>{
+export const togglePublishCourse  =async(req,res) =>{
     try{
         const {courseId} = req.params;
         const {publish} = req.query; // false,true
