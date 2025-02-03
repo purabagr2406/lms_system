@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin:"http:///localhost:8080",
-    credentials:truel
+    credentials:true,
 }))
 
 //apis
