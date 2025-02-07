@@ -21,10 +21,16 @@ const PORT = process.env.PORT || 3000;
 //default middleware
 app.use(express.json());
 app.use(cookieParser());
+// app.use(cors({
+//     origin:"http:///localhost:8080",
+//     credentials:true,
+// }))
 app.use(cors({
-    origin:"http:///localhost:8080",
-    credentials:true,
-}))
+    origin: "http://localhost:5173", // Adjust to match your frontend's URL
+    credentials: true, // Allow cookies & authentication headers
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
+}));
 
 //apis
 app.use("/api/v1/media", mediaRoute);

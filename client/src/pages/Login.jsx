@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
 const Login = () => {
-	const [signupInput, setSignupInput] = useState({ email: "", username: "", password: "" });
+	const [signupInput, setSignupInput] = useState({ name: "", email: "", password: "" });
 	const [loginInput, setLoginInput] = useState({ email: "", password: "" });
 
 	const [registerUser, { data: registerData,
@@ -66,7 +66,7 @@ const Login = () => {
 		if (loginError) {
 			toast.error(loginError.data.message || "Login Failed");
 		}
-	}, [loginIsLoading, registerIsLoading, loginData, registerData, loginError, registerError])
+	}, [loginIsLoading, registerIsLoading, loginData, registerData, loginError, registerError, registerIsSuccess, loginIsSuccess])
 	return (
 		<div className="flex items-center w-full justify-center mt-20">
 			<Tabs defaultValue="login" className="w-[400px]">
@@ -98,8 +98,8 @@ const Login = () => {
 								<Input id="username"
 									placeholder="e.g. @rishabh1204"
 									type="text"
-									name="username"
-									value={signupInput.username}
+									name="name"
+									value={signupInput.name}
 									required={true}
 									onChange={(e) => changeInputHandler(e, "signup")} />
 							</div>
@@ -113,13 +113,7 @@ const Login = () => {
 									required={true}
 									onChange={(e) => changeInputHandler(e, "signup")} />
 							</div>
-							<div className="space-y-1">
-								<Label htmlFor="confirmpassword">Confirm Password</Label>
-								<Input id="confirmpassword"
-									type="password"
-									required={true}
-									onChange={(e) => changeInputHandler(e, "signup")} />
-							</div>
+							
 						</CardContent>
 						<CardFooter>
 							<Button disabled={registerIsLoading} onClick={() => handleRegistration("signup")}>

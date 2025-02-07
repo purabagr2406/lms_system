@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { userLoggedIn } from "../authSlice";
 
-const USER_API = "http://localhost:8080/api/v1/user" // some base user api from postman
+const USER_API = "http://localhost:8080/api/v1/user/" // some base user api from postman
 export const authApi = createApi({
 	reducerPath:"authApi",
 	baseQuery:fetchBaseQuery({
@@ -14,7 +14,7 @@ export const authApi = createApi({
 			query: (inputData) => ({
 				url:"register", // 
 				method:"POST",
-				body:inputData
+				body:inputData,
 			})
 		}),
 		loginUser: builder.mutation({// to post
