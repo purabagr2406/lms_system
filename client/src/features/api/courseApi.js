@@ -21,10 +21,29 @@ export const courseApi = createApi({
 		}),
 		getCreatorCourse: builder.query({
 			query: () => ({
-				url: "",
+				url: "/",
 				method: "GET",
 			}),
 			providesTags: ['Refetch_Creator_Course'],
+		}),
+		getSearchCourses:builder.query({
+			query: ({searchQuery, categories, sortByPrice}) => {
+				let queryString = `/search?query=${encodeURIComponent(searchQuery)}`
+
+				if (categories && categories.length > 0) {
+					const categoriesString = categories.map(encodeURIComponent).join(",");
+					queryString += `&categories=${categoriesString}`;
+				}
+
+				if (sortByPrice) {
+					queryString += `sortByPrice=${encodeURIComponent(sortByPrice)}`;
+				}
+
+				return {
+					url : queryString,
+					method:"GET",
+				}
+			}
 		}),
 		editCourse: builder.mutation({
 			query: ({ formData, courseId }) => ({
@@ -41,7 +60,7 @@ export const courseApi = createApi({
 			})
 		}),
 		createLecture: builder.mutation({
-			query: (lectureTitle, courseId) => ({
+			query: ({lectureTitle, courseId}) => ({
 				url: `/${courseId}/lecture`,
 				method: "POST",
 				body: { lectureTitle }
@@ -80,6 +99,12 @@ export const courseApi = createApi({
         method: "PATCH",
       }),
     }),
+		getPublishedCourse: builder.query({
+      query: () => ({
+        url: "/published-courses",
+        method: "GET",
+      }),
+    }),
 	})
 })
 export const {
@@ -89,4 +114,6 @@ export const {
 	useEditLectureMutation, useRemoveLectureMutation,
 	useGetLectureByIdQuery,
 	usePublishCourseMutation,
+	useGetPublishedCourseQuery,
+	useGetSearchCoursesQuery,
 } = courseApi;

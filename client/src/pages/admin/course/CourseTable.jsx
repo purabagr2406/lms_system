@@ -61,7 +61,7 @@ const CourseTable = () => {
 	
 	// const isLoading = false;
 	return (
-		<div>
+		<div className='my-20'>
 			<Button onClick={() => navigate(`/admin/course/create`)}>Create New Course</Button>
 			<Table>
 				<TableCaption>A list of your recent Courses.</TableCaption>
@@ -86,7 +86,7 @@ const CourseTable = () => {
 					))} */}
 					{
 						isLoading ? <TableCaption>Loading</TableCaption> : (
-							data.courses.map((course) => (
+							data?.courses?.map((course) => (
 								<TableRow key={course._id}>
 									<TableCell className="font-medium">{course?.coursePrice || "NA"}</TableCell>
 									<TableCell><Badge>{course.isPublished? "Published":"Draft"}</Badge></TableCell>

@@ -19,6 +19,7 @@ const AddCourse = () => {
 	const createCourseHandler = async () => {
 		// console.log(courseTitle, category);
 		await createCourse({courseTitle, category});
+		navigate(-1);
 	}
 
 	const getSelectedCategory = (value) => {
@@ -34,7 +35,7 @@ const AddCourse = () => {
 		}
 	}, [isSuccess, error])
 	return (
-		<div className='flex-1 mx-10'>
+		<div className='flex-1 mx-10 my-20'>
 			<div className='mb-4'>
 				<h1 className='font-bold text-xl'>Let's add course, add some basic course details for your new course</h1>
 				<p className='text-sm'>davhviesvhsefevghevehsu</p>

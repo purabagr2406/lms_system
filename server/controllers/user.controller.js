@@ -92,7 +92,7 @@ export const logout = async (_, res) => {
 export const getUserProfile = async (req, res) => {
     try {
         const userId = req.id;
-        const user = await User.findById(userId).select("-password");
+        const user = await User.findById(userId).select("-password").populate("enrolledCourses");
         if(!user){
             res.status(404).json({
                 message:"Profile not found",
@@ -117,7 +117,8 @@ export const updateProfile = async (req, res) => {
         const userId = req.id;
         const {name} = req.body;
         const profilePhoto = req.file;
-
+				// console.log(profilePhoto);
+				
         const user = await User.findById(userId);
         if(!user){
             return res.status(404).json({
@@ -131,8 +132,8 @@ export const updateProfile = async (req, res) => {
             deleteMediaFromCloudinary(publicId);
         }
         //upload new photo
-        const cloudResponse = uploadMedia(profilePhoto.path);
-        const {secure_url:photoUrl} = cloudResponse.secure_url;
+        const cloudResponse = await uploadMedia(profilePhoto.path);
+        const photoUrl = cloudResponse.secure_url;
 
         const updatedData = {name, photoUrl};
         const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {new:true}).select("-password");
