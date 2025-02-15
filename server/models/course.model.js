@@ -5,24 +5,24 @@ const courseSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    SubTitle:{
+    subTitle:{
         type:String,
     },
     description:{
         type:String,
     },
-    Category:{
+    category:{
         type:String,
         required:true
     },
-    Category:{
+    courseLevel:{
         type:String,
-        enum:["beginner" , "Medium" ,"Advance"]
+        enum:["Beginner" , "Medium" ,"Advanced"]
     },
-    CoursePrice:{
+    coursePrice:{
         type:Number
     },
-    CourseThumbnail:{
+    courseThumbnail:{
         type:String
     },
     enrolledStudents:[{

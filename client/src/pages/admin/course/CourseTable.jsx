@@ -1,7 +1,8 @@
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useGetCreatorCourseQuery } from '@/features/api/courseApi';
-import { Badge, Edit } from 'lucide-react';
+import { Edit } from 'lucide-react';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -57,11 +58,11 @@ const CourseTable = () => {
 	const navigate = useNavigate();
 
 	if(isLoading) return <h1>Loading...</h1>
-	console.log("data -> ", data);
+	// console.log("data -> ", data);
 	
 	// const isLoading = false;
 	return (
-		<div className='my-20'>
+		<div className='my-16'>
 			<Button onClick={() => navigate(`/admin/course/create`)}>Create New Course</Button>
 			<Table>
 				<TableCaption>A list of your recent Courses.</TableCaption>
@@ -74,22 +75,12 @@ const CourseTable = () => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{/* {data.courses.map((invoices) => (
-						<TableRow key={course._id}>
-							<TableCell className="font-medium">{course?.coursePrice || "NA"}</TableCell>
-							<TableCell> <Badge>{course.isPublished ? "Published" : "Draft"}</Badge> </TableCell>
-							<TableCell>{course.courseTitle}</TableCell>
-							<TableCell className="text-right">
-								<Button size='sm' variant='ghost' onClick={() => navigate(`${course._id}`)}><Edit /></Button>
-							</TableCell>
-						</TableRow>
-					))} */}
 					{
 						isLoading ? <TableCaption>Loading</TableCaption> : (
 							data?.courses?.map((course) => (
 								<TableRow key={course._id}>
 									<TableCell className="font-medium">{course?.coursePrice || "NA"}</TableCell>
-									<TableCell><Badge>{course.isPublished? "Published":"Draft"}</Badge></TableCell>
+									<TableCell><Badge className={course.isPublished? ("bg-green-500"):("bg-yellow-500")}>{course.isPublished? "Published":"Draft"}</Badge></TableCell>
 									<TableCell>{course.courseTitle}</TableCell>
 									<TableCell className="text-right">
 										<Button size='sm' variant='ghost' className="font-bold" onClick={() => navigate(`${course._id}`)}><Edit /></Button>

@@ -7,7 +7,11 @@ import { useGetPublishedCourseQuery } from '@/features/api/courseApi';
 const courses = [1, 2, 3, 4, 5, 6];
 
 const Courses = (course) => {
+	
 	const {data, isLoading, isSuccess, isError} = useGetPublishedCourseQuery();
+	// data?.courses && data.courses.forEach(course => {
+	// 	console.log(course._id);
+	// });
 	if (isError) return <h1>Some Error occured while loading course...</h1>
 	return (
 		<div className='bg-gray-50 dark:bg-[#0A0A0A] my-24'>
@@ -20,8 +24,6 @@ const Courses = (course) => {
 						)) : data?.courses && data.courses.map((course, index) => <Course key ={index} course={course}/>)
 					}
 				</div> 
-
-
 			</div>
 		</div>
 	)

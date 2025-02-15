@@ -47,7 +47,7 @@ const Login = () => {
 	}
 	const handleRegistration = async (type) => {
 		const inputData = type === "signup" ? signupInput : loginInput;
-		console.log(inputData);
+		// console.log(inputData);
 		const action = type === "signup" ? registerUser : loginUser;
 		await action(inputData);
 	}

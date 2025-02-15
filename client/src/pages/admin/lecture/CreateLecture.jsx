@@ -22,6 +22,8 @@ const CreateLecture = () => {
 	const createLectureHandler = async () => {
 		await createLecture({ lectureTitle, courseId });
 	}
+	console.log(lectureData);
+	
 	useEffect(() => {
 		if (isSuccess) {
 			refetch();
@@ -69,7 +71,7 @@ const CreateLecture = () => {
 						) : lectureData?.lectures?.length === 0 ? (
 							<p>No lecture available</p>) : (
 							lectureData?.lectures?.map((lecture, index) => (
-								<Lecture key={lecture._id} lecture={lecture} courseId={courseId} index={index} />
+								<Lecture key={lecture._id} lecture={lecture} index={index} />
 							))
 						)
 					}

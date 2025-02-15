@@ -21,7 +21,6 @@ const EditLecture = () => {
 			</div>
 			<LectureTab />
 		</div>
-
 	)
 }
 

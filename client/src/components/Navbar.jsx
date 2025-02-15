@@ -11,12 +11,13 @@ import {
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import DarkMode from '@/DarkMode';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Separator } from '@radix-ui/react-dropdown-menu';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useLogoutUserMutation } from '@/features/api/authApi';
 import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
+
 
 
 const Navbar = () => {
@@ -69,7 +70,7 @@ const Navbar = () => {
 										)
 									}
 
-									<DropdownMenuItem onClick={logoutHandler}> Log Out</DropdownMenuItem>
+									<DropdownMenuItem onClick={logoutHandler}>Log Out</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
 

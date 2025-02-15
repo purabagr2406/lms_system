@@ -27,19 +27,21 @@ const CourseTab = () => {
 	const { data: courseByIdData, isLoading: courseByIdLoading, refetch } = useGetCourseByIdQuery(courseId, { refetchOnMountOrArgChange: true });
 
 	useEffect(() => {
+		console.log(courseByIdData);
+		
 		if (courseByIdData?.course) {
 			const course = courseByIdData.course;
 			setInput({
-				courseTitle: course.courseTitle,
-				subTitle: course.subTitle,
-				description: course.description,
-				category: course.category,
-				courseLevel: course.courseLevel,
-				coursePrice: course.coursePrice,
-				courseThumbnail: course.courseThumbnail,
+				courseTitle: course.courseTitle || "",
+				subTitle: course.subTitle || "",
+				description: course.description || "",
+				category: course.category || "",
+				courseLevel: course.courseLevel || "",
+				coursePrice: course.coursePrice || "",
+				courseThumbnail: course.courseThumbnail || "",
 			});
 		}
-	}, [courseId]);
+	}, [courseId, courseByIdData]);
 	// const isPublished = true;
 	const navigate = useNavigate();
 	const [editCourse, { data, isLoading, isSuccess, error }] = useEditCourseMutation();
@@ -126,7 +128,7 @@ const CourseTab = () => {
 							name="courseTitle"
 							value={input.courseTitle}
 							onChange={changeEventHandler}
-							placeholder="Fullstack development"
+							placeholder="E.g. Fullstack development"
 						/>
 					</div>
 					<div>
@@ -136,7 +138,7 @@ const CourseTab = () => {
 							name="subTitle"
 							value={input.subTitle}
 							onChange={changeEventHandler}
-							placeholder="Become a Fullstack dev from scratch in 2 months"
+							placeholder="E.g. Become a Fullstack dev from scratch in 2 months"
 						/>
 					</div>
 					<div>
@@ -146,9 +148,9 @@ const CourseTab = () => {
 					<div className='flex items-center gap-5'>
 						<div>
 							<Label>Category</Label>
-							<Select onValueChange={selectCategory}>
+							<Select onValueChange={selectCategory} value={input.category}>
 								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Select a Category" />
+									<SelectValue placeholder={input.category === "" ? ("Select a Category") : (input.category)} />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectGroup>
@@ -175,16 +177,16 @@ const CourseTab = () => {
 						</div>
 						<div>
 							<Label>Course Level</Label>
-							<Select onValueChange={selectCourseLevel}>
+							<Select onValueChange={selectCourseLevel} value={input.courseLevel}>
 								<SelectTrigger className="w-[180px]">
 									<SelectValue placeholder="Select Level" />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectGroup>
 										<SelectLabel>Level</SelectLabel>
-										<SelectItem value="Next JS">Beginner</SelectItem>
-										<SelectItem value="Data Science">Medium</SelectItem>
-										<SelectItem value="Frontend Development">Advanced</SelectItem>
+										<SelectItem value="Beginner">Beginner</SelectItem>
+										<SelectItem value="Medium">Medium</SelectItem>
+										<SelectItem value="Advanced">Advanced</SelectItem>
 									</SelectGroup>
 								</SelectContent>
 							</Select>
