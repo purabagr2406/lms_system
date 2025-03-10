@@ -59,14 +59,13 @@ const Navbar = () => {
 								<DropdownMenuContent>
 									<DropdownMenuLabel>My Account</DropdownMenuLabel>
 									<DropdownMenuSeparator />
-									<DropdownMenuItem><Link to="my-learning">Learning</Link></DropdownMenuItem>
-									<DropdownMenuItem><Link to="profile">Edit Profile</Link></DropdownMenuItem>
-									<DropdownMenuItem>Settings</DropdownMenuItem>
+									<Link to="my-learning"><DropdownMenuItem>Learning</DropdownMenuItem></Link>
+									<Link to="profile"><DropdownMenuItem>Edit Profile</DropdownMenuItem></Link>
 									{
 										user.role === "instructor" && (
 											<>
 												<DropdownMenuSeparator />
-												<DropdownMenuItem><Link to="/admin/dashboard">Dashboard</Link></DropdownMenuItem></>
+												<Link to="/admin/dashboard"><DropdownMenuItem>Dashboard</DropdownMenuItem></Link></>
 										)
 									}
 

@@ -40,14 +40,14 @@ const Filter = ({ handleFilterChange }) => {
         return newCategories;
     });
   };
-
+	console.log(selectedCategories);
   const selectByPriceHandler = (selectedValue) => {
     setSortByPrice(selectedValue);
     handleFilterChange(selectedCategories, selectedValue);
   }
   return (
     <div className="w-full md:w-[20%]">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-2 justify-between">
         <h1 className="font-semibold text-lg md:text-xl">Filter Options</h1>
         <Select onValueChange={selectByPriceHandler}>
           <SelectTrigger>
