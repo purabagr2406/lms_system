@@ -40,7 +40,8 @@ const CourseDetail = () => {
 			navigate(`/course-progress/${courseId}`)
 		}
 	}
-
+	console.log(course?.lectures[0]?.videoInfo?.videoUrl);
+	
 	return (
 		<div className="space-y-5 my-16">
 			<div className="bg-[#2D2F31] text-white">
@@ -96,8 +97,8 @@ const CourseDetail = () => {
 							<div className="w-full aspect-video mb-4">
 								<ReactPlayer
 									width="100%"
-									height={"100%"}
-									url={course?.lectures[1]?.videoInfo?.videoUrl}
+									height="300px"
+									url={course?.lectures[0]?.videoUrl}
 									controls={true}
 									className="rounded-full"
 								/>

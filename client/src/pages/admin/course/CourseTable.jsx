@@ -1,10 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { useGetCreatorCourseQuery } from '@/features/api/courseApi';
+import { useGetCreatorCourseQuery, useRemoveCourseMutation } from '@/features/api/courseApi';
 import { Delete, Edit, Trash } from 'lucide-react';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner';
 
 const invoices = [
 	{
@@ -54,13 +55,26 @@ const invoices = [
 
 
 const CourseTable = () => {
-	const {data, isLoading} = useGetCreatorCourseQuery();
+	const { data, isLoading, refetch } = useGetCreatorCourseQuery();
 	const navigate = useNavigate();
 
-	if(isLoading) return <h1>Loading...</h1>
-	// console.log("data -> ", data);
 	
+	// console.log("data -> ", data);
+	const [removeCourse, { data: removeCourseData, isLoading: removeCourseLoading, isSuccess: removeCourseSuccess, error: removeCourseError }] = useRemoveCourseMutation();
+	const removeCourseHandler = async (courseId) => {
+		await removeCourse(courseId);
+	}
+	useEffect(() => {
+		if (removeCourseSuccess) {
+			toast.success(removeCourseData?.message || "Course Removed");
+			refetch();
+		}
+		if (removeCourseError) {
+			toast.error(removeCourseError.data.message || "Failed to remove course");
+		}
+	}, [removeCourseData, removeCourseSuccess, removeCourseError]);
 	// const isLoading = false;
+	if (isLoading) return <h1>Loading...</h1>
 	return (
 		<div>
 			<Button onClick={() => navigate(`/admin/course/create`)}>Create New Course</Button>
@@ -80,11 +94,11 @@ const CourseTable = () => {
 							data?.courses?.map((course) => (
 								<TableRow key={course._id}>
 									<TableCell className="font-medium">{course?.coursePrice || "NA"}</TableCell>
-									<TableCell><Badge className={course.isPublished? ("bg-green-500"):("bg-yellow-500")}>{course.isPublished? "Published":"Draft"}</Badge></TableCell>
+									<TableCell><Badge className={course.isPublished ? ("bg-green-500") : ("bg-yellow-500")}>{course.isPublished ? "Published" : "Draft"}</Badge></TableCell>
 									<TableCell>{course.courseTitle}</TableCell>
 									<TableCell className="text-right">
 										<Button size='sm' variant='ghost' className="font-bold" onClick={() => navigate(`${course._id}`)}><Edit /></Button>
-										<Button size="sm" variant='ghost' className="font-bold"><Trash /></Button>
+										<Button size="sm" variant='ghost' className="font-bold" onClick={() => removeCourseHandler(course._id)}><Trash /></Button>
 									</TableCell>
 								</TableRow>
 							))

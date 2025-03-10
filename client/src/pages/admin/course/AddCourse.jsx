@@ -19,7 +19,6 @@ const AddCourse = () => {
 	const createCourseHandler = async () => {
 		// console.log(courseTitle, category);
 		await createCourse({courseTitle, category});
-		navigate(-1);
 	}
 
 	const getSelectedCategory = (value) => {
@@ -31,7 +30,7 @@ const AddCourse = () => {
 	useEffect(()=> {
 		if (isSuccess) {
 			toast.success(data?.message || "Course Created")
-			navigate("admin/course")
+			navigate(-1)
 		}
 	}, [isSuccess, error])
 	return (
