@@ -86,11 +86,12 @@ const LectureTab = () => {
 	}, [data, isSuccess, error])
 
 	const removeLectureHandler = async () => {
-		await removeLecture(lectureId);
+		await removeLecture({lectureId});
 	}
 	useEffect(() => {
 		if (removeSuccess) {
 			toast.success(removeData?.message);
+			navigate(-1);
 		}
 		if (removeError) {
 			toast.error(removeError.data.message);
