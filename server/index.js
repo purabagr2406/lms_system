@@ -26,19 +26,19 @@ app.use(cookieParser());
 //     credentials:true,
 // }))
 app.use(cors({
-    origin: "http://localhost:5173", // Adjust to match your frontend's URL
-    credentials: true, // Allow cookies & authentication headers
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
+	origin: "http://localhost:5173", // Adjust to match your frontend's URL
+	credentials: true, // Allow cookies & authentication headers
+	methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed HTTP methods
+	allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
 }));
 
 //apis
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
-app.use("/api/v1/course" , courseRoute);
-app.use("/api/v1/purchase" , purchaseRoute);
+app.use("/api/v1/course", courseRoute);
+app.use("/api/v1/purchase", purchaseRoute);
 app.use("/api/v1/progress", courseProgressRoute)
 
 app.listen(PORT, () => {
-    console.log(`Server listen at port ${PORT}`);
+	console.log(`Server listen at port ${PORT}`);
 })

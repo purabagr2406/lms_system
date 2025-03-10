@@ -11,7 +11,7 @@ import Lecture from './Lecture'
 const CreateLecture = () => {
 	const params = useParams();
 	const courseId = params.courseId;
-	// console.log(courseId);
+	console.log(typeof courseId);
 	const [lectureTitle, setLectureTitle] = useState("");
 	// const isLoading = false;
 	const navigate = useNavigate();

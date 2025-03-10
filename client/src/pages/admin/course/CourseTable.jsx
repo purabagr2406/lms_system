@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useGetCreatorCourseQuery } from '@/features/api/courseApi';
-import { Edit } from 'lucide-react';
+import { Delete, Edit, Trash } from 'lucide-react';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -62,9 +62,9 @@ const CourseTable = () => {
 	
 	// const isLoading = false;
 	return (
-		<div className='my-16'>
+		<div>
 			<Button onClick={() => navigate(`/admin/course/create`)}>Create New Course</Button>
-			<Table>
+			<Table className="my-5 rounded-full">
 				<TableCaption>A list of your recent Courses.</TableCaption>
 				<TableHeader>
 					<TableRow>
@@ -84,6 +84,7 @@ const CourseTable = () => {
 									<TableCell>{course.courseTitle}</TableCell>
 									<TableCell className="text-right">
 										<Button size='sm' variant='ghost' className="font-bold" onClick={() => navigate(`${course._id}`)}><Edit /></Button>
+										<Button size="sm" variant='ghost' className="font-bold"><Trash /></Button>
 									</TableCell>
 								</TableRow>
 							))

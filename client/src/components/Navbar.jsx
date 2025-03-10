@@ -86,7 +86,9 @@ const Navbar = () => {
 			</div>
 			{/* Mobile */}
 			<div className='flex md:hidden items-center justify-between px-4 h-full'>
-				<h1 className="font-extrabold text-2xl">E-learning</h1>
+				<Link to="/" className='flex flex-row gap-2'>
+					<h1 className="font-extrabold text-2xl">E-learning</h1>
+				</Link>
 				<MobileNavbar user={user} />
 			</div>
 
@@ -108,7 +110,9 @@ const MobileNavbar = ({ user }) => {
 			</SheetTrigger>
 			<SheetContent className="flex flex-col">
 				<SheetHeader className="flex flex-row item-center justify-between mt-2">
-					<SheetTitle><Link to="/">E-Learning</Link></SheetTitle>
+					<Link to="/" className='flex flex-row gap-2'>
+						<SheetTitle>E-Learning</SheetTitle>
+					</Link>
 					<DarkMode />
 				</SheetHeader>
 				<Separator className='mr-2' />

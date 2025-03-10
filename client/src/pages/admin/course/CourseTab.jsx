@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useEditCourseMutation, useGetCourseByIdQuery, usePublishCourseMutation } from '@/features/api/courseApi';
+import { useEditCourseMutation, useGetCourseByIdQuery, usePublishCourseMutation, useRemoveCourseMutation } from '@/features/api/courseApi';
 import { Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -28,7 +28,7 @@ const CourseTab = () => {
 
 	useEffect(() => {
 		console.log(courseByIdData);
-		
+
 		if (courseByIdData?.course) {
 			const course = courseByIdData.course;
 			setInput({
@@ -82,6 +82,7 @@ const CourseTab = () => {
 	useEffect(() => {
 		if (isSuccess) {
 			toast.success(data.message || "Course Updated");
+
 		}
 		if (error) {
 			toast.error(error.data.message || "Failed to update")
@@ -99,6 +100,20 @@ const CourseTab = () => {
 			toast.error("Failed to publish or unpublish course");
 		}
 	}
+	const [removeCourse, { data: removeCourseData, isLoading: removeCourseLoading, isSuccess: removeCourseSuccess, error: removeCourseError }] = useRemoveCourseMutation();
+	const removeCourseHandler = async () => {
+		await removeCourse(courseId);
+	}
+	useEffect(() => {
+		if (removeCourseSuccess) {
+			toast.success(removeCourseData.message);
+			navigate(-1);
+			refetch();
+		}
+		if (removeCourseError) {
+			toast.error(removeCourseError.data.message || "Failed to remove course");
+		}
+	}, [removeCourseSuccess, removeCourseError]);
 	if (courseByIdLoading) return <Loader2 className='h-4 w-4 animate-apin' />
 	return (
 		<Card>
@@ -116,7 +131,11 @@ const CourseTab = () => {
 							courseByIdData?.course.isPublished ? "Unpublish" : "Publish"
 						}
 					</Button>
-					<Button>Remove Course</Button>
+					<Button onClick={removeCourseHandler}>
+						{
+							removeCourseLoading ? (<><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait</>) : (<>Remove Course</>)
+						}
+					</Button>
 				</div>
 			</CardHeader>
 			<CardContent>

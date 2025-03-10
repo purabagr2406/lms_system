@@ -49,7 +49,7 @@ const CourseDetail = () => {
 						{course?.courseTitle}
 					</h1>
 					{
-						(course?.subTitle) ? (<><p className="text-base md:text-lg">{course.subTitle}</p></>) : <></>
+						(course?.subTitle) ? (<><p className="text-base md:text-lg">{course?.subTitle}</p></>) : <></>
 					}
 					<p>
 						Created By {" "}
@@ -76,7 +76,7 @@ const CourseDetail = () => {
 					<Card>
 						<CardHeader>
 							<CardTitle>Course Content</CardTitle>
-							<CardDescription>4 lectures</CardDescription>
+							<CardDescription>{course?.lectures?.length} lectures</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-3">
 							{course.lectures.map((lecture, idx) => (

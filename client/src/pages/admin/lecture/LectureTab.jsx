@@ -20,8 +20,8 @@ const LectureTab = () => {
 	const [btnDisable, setBtnDisable] = useState(true);
 	const params = useParams();
 	const { courseId, lectureId } = params;
-	// console.log(courseId);
-	// console.log(lectureId);
+	console.log(courseId);
+	console.log(lectureId);
 
 
 	const { data: lectureData } = useGetLectureByIdQuery(lectureId);
@@ -63,37 +63,39 @@ const LectureTab = () => {
 			}
 		}
 	}
+	console.log(uploadVideoInfo);
+	
 	const editLectureHandler = async () => {
 		await editLecture({
 			lectureTitle,
 			videoInfo: uploadVideoInfo,
 			isPreviewFree: isFree,
-			courseId: courseId,
-			lectureId: lectureId
+			courseId,
+			lectureId
 		});
 	}
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (isSuccess) {
-			toast.success(data.message);
+			toast.success(data?.message);
 			navigate(-1);
 		}
 		if (error) {
 			toast.error(error.data.message);
 		}
-	}, [isSuccess, error])
+	}, [data, isSuccess, error])
 
 	const removeLectureHandler = async () => {
 		await removeLecture(lectureId);
 	}
 	useEffect(() => {
 		if (removeSuccess) {
-			toast.success(removeData.message);
+			toast.success(removeData?.message);
 		}
 		if (removeError) {
 			toast.error(removeError.data.message);
 		}
-	}, [removeSuccess, removeError])
+	}, [removeData, removeSuccess, removeError])
 	return (
 		<div>
 			<Card>
