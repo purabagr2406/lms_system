@@ -9,7 +9,8 @@ const HeroSection = () => {
 	const searchHandler = (e) => {
 		e.preventDefault();
 		if (searchQuery.trim() !== "") {
-			navigate(`/course/search?query=${searchQuery}`);
+			// navigate(`/course/search?query=${searchQuery}`);
+			navigate(`/course/search?query=${encodeURIComponent(searchQuery)}`);
 		}
 		setSearchQuery("");
 	}
@@ -26,7 +27,7 @@ const HeroSection = () => {
 						className="flex-grow border-none focus-visible:ring-0 px-6 py-3 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500" />
 					<Button className="bg-blue-600 dark:bg-blue-700 text-white px-6 py-3 rounded-r-full hover:bg-blue-700 dark:hover:bg-blue-800">Search</Button>
 				</form>
-				<Button onClick={() => navigate(`/course/search`)} className="bg-white dark:bg-gray-800 text-blue-600 rounded-full hover:bg-gray-200">Explore Courses</Button>
+				<Button onClick={() => navigate(`/course/search?query`)} className="bg-white dark:bg-gray-800 text-blue-600 rounded-full hover:bg-gray-200">Explore Courses</Button>
 			</div>
 		</div>
 	)
