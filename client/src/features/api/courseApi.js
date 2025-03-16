@@ -31,12 +31,12 @@ export const courseApi = createApi({
 				let queryString = `/search?query=${encodeURIComponent(searchQuery)}`
 
 				if (categories && categories.length > 0) {
-					const categoriesString = categories.map(encodeURIComponent).join(",");
-					queryString += `&categories=${categoriesString}`;
+					const categoriesString = categories.map(cat => `categories=${encodeURIComponent(cat)}`).join("&");
+					queryString += `&${categoriesString}`;
 				}
 
 				if (sortByPrice) {
-					queryString += `sortByPrice=${encodeURIComponent(sortByPrice)}`;
+					queryString += `&sortByPrice=${encodeURIComponent(sortByPrice)}`;
 				}
 
 				return {
