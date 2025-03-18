@@ -76,7 +76,7 @@ const Navbar = () => {
 						) : (
 							<div className="flex items-center gap-2">
 								<Button variant="outline" onClick={() => navigate("/login")}>Login</Button>
-								<Button>Signup</Button>
+								<Button onClick={() => navigate("/login")}>Signup</Button>
 							</div>
 						)
 					}

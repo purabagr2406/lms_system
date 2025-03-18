@@ -48,7 +48,7 @@ const Profile = () => {
 
 	if (isLoading) return <><h1>Profile is Loading...</h1></>
 	return (
-		<div className='max-w-4xl mx-auto px-4 my-24'>
+		<div className='max-w-4xl mx-4 px-4 my-24'>
 			<h1 className='font-bold text-2xl text-center md:text-left'>
 				Profile
 			</h1>
