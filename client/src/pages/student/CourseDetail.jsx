@@ -10,11 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useLoadUserQuery } from "@/features/api/authApi";
+import { usePublishCourseMutation } from "@/features/api/courseApi";
 import { useGetCourseDetailWithStatusQuery } from "@/features/api/purchaseApi";
 import { BadgeInfo, Lock, PlayCircle } from "lucide-react";
 import React from "react";
 import ReactPlayer from "react-player";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const CourseDetail = () => {
   const params = useParams();
@@ -22,20 +24,19 @@ const CourseDetail = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError } =
     useGetCourseDetailWithStatusQuery(courseId);
+	const course = data?.course;
+	const purchased = data?.purchased;
   const {
     data: userData,
     isLoading: userIsLoading,
     error: userError,
   } = useLoadUserQuery();
   const user = userData?.user;
-  // console.log(userData);
+  // console.log(user);
   // console.log(data.course.creator);
   // console.log(data);
-
-  if (isLoading || userIsLoading) return <h1>Loading...</h1>;
-  if (isError || userError) return <h1>Failed to load course details</h1>;
-
-  const { course, purchased } = data;
+  
+	// console.log(course)
   // console.log(purchased);
   // console.log(course);
 
@@ -44,8 +45,27 @@ const CourseDetail = () => {
       navigate(`/course-progress/${courseId}`);
     }
   };
+	const [publishCourse, {publishData, publishLoading, pubLishError}] = usePublishCourseMutation();
+	const publishStatusHandler = async () => {
+		try {
+			const response = await publishCourse({courseId, query:"false"});
+			if (response.data) {
+				navigate(-1);
+				console.log("success");
+				toast.success(response.data.message);
+			}
+			else {
+				toast.error(response.data.message);
+			}
+		}
+		catch (error) {
+			console.log(error);
+			toast.error("Error with Server");
+		}
+	}
   // console.log(course?.lectures[0]?.videoInfo?.videoUrl);
-
+	if (isLoading || userIsLoading) return <h1>Loading...</h1>;
+  if (isError || userError) return <h1>Failed to load course details</h1>;
   return (
     <div className="space-y-5 my-16">
       <div className="bg-[#2D2F31] text-white">
@@ -104,6 +124,16 @@ const CourseDetail = () => {
               ))}
             </CardContent>
           </Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>Instructor Controls</CardTitle>
+							<div className="w-full flex flex-col gap-2">
+								<Button onClick={() => navigate(`/admin/course/${courseId}`)} className="p-2">Edit Course Details</Button>
+								<Button variant="outline" className="p-2" onClick={publishStatusHandler} disabled={publishLoading}>Unpublish Course</Button>
+								<Button variant="destructive">Remove Course</Button>
+							</div>
+						</CardHeader>
+					</Card>
         </div>
         <div className="w-full lg:w-1/3">
           <Card>
@@ -134,13 +164,16 @@ const CourseDetail = () => {
               </h1>
             </CardContent>
             <CardFooter className="flex justify-center p-4">
-              {purchased ? (
-                <Button onClick={handleContinueCourse} className="w-full">
-                  Continue Course
-                </Button>
-              ) : (
-                <BuyCourseButton courseId={courseId} />
-              )}
+							{
+								(user?.role === "instructor" && user?._id === course?.creator._id) ? (<></>)
+								:(purchased ? (
+									<Button onClick={handleContinueCourse} className="w-full">
+										Continue Course
+									</Button>
+								) : (
+									<BuyCourseButton courseId={courseId} />
+								))
+							}
             </CardFooter>
           </Card>
         </div>

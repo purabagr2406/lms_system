@@ -8,7 +8,7 @@ const courses = [1, 2, 3, 4, 5, 6];
 
 const Courses = (course) => {
 	
-	const {data, isLoading, isSuccess, isError} = useGetPublishedCourseQuery();
+	const {data, isLoading, isSuccess, isError, refetch} = useGetPublishedCourseQuery();
 	// data?.courses && data.courses.forEach(course => {
 	// 	console.log(course._id);
 	// });

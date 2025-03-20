@@ -27,7 +27,7 @@ const CourseTab = () => {
 	const { data: courseByIdData, isLoading: courseByIdLoading, refetch } = useGetCourseByIdQuery(courseId, { refetchOnMountOrArgChange: true });
 
 	useEffect(() => {
-		console.log(courseByIdData);
+		// console.log(courseByIdData);
 
 		if (courseByIdData?.course) {
 			const course = courseByIdData.course;
@@ -78,6 +78,8 @@ const CourseTab = () => {
 		formData.append("courseThumbnail", input.courseThumbnail);
 		// console.log(input);
 		await editCourse({ formData, courseId });
+		refetch();
+		navigate("/admin/course");
 	}
 	useEffect(() => {
 		if (isSuccess) {
@@ -94,7 +96,8 @@ const CourseTab = () => {
 			const response = await publishCourse({ courseId, query: action });
 			if (response.data) {
 				refetch();
-				toast.success(response.data.message);
+				// toast.success(response.data.message);
+				navigate("/admin/course");
 			}
 		} catch (error) {
 			toast.error("Failed to publish or unpublish course");
@@ -107,7 +110,7 @@ const CourseTab = () => {
 	useEffect(() => {
 		if (removeCourseSuccess) {
 			toast.success(removeCourseData.message);
-			navigate(-1);
+			navigate("/admin/course");
 			refetch();
 		}
 		if (removeCourseError) {

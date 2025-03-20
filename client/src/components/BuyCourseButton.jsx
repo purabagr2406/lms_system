@@ -27,7 +27,7 @@ const BuyCourseButton = ({ courseId }) => {
 
   return (
     <Button
-      disabled={isLoading}
+      disabled={isLoading || userId === creatorId}
       onClick={purchaseCourseHandler}
       className="w-full"
     >
