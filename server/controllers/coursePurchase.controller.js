@@ -107,7 +107,13 @@ export const stripeWebhook = async (req, res) => {
 				purchase.amount = session.amount_total / 100;
 			}
 			purchase.status = "completed";
-
+			const user = await User.findById(purchase.userId);
+			if (user){
+				user.enrolledCourses.push(purchase.courseId);
+			}
+			else {
+				return res.status(404).json({ message: "User not found" });
+			}
 			// Make all lectures visible by setting `isPreviewFree` to true
 			if (purchase.courseId && purchase.courseId.lectures.length > 0) {
 				await Lecture.updateMany(
