@@ -26,6 +26,8 @@ const CourseDetail = () => {
 	const navigate = useNavigate();
 	const { data, isLoading, isError } =
 		useGetCourseDetailWithStatusQuery(courseId);
+	// console.log(data);
+	
 	const course = data?.course;
 	const purchased = data?.purchased;
 	const {
@@ -104,9 +106,6 @@ const CourseDetail = () => {
 					) : (
 						<></>
 					)}
-					<div>
-
-					</div>
 					<div className="text-[#f9f9fb] underline bold font-extrabold flex gap-5 flex-row">
 						<Avatar>
 							<AvatarImage src={course?.creator.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />

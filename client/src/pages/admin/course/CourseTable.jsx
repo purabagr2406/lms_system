@@ -57,7 +57,7 @@ const invoices = [
 const CourseTable = () => {
 	const { data, isLoading, refetch } = useGetCreatorCourseQuery();
 	const navigate = useNavigate();
-
+	// console.log(data);
 	
 	// console.log("data -> ", data);
 	const [removeCourse, { data: removeCourseData, isLoading: removeCourseLoading, isSuccess: removeCourseSuccess, error: removeCourseError }] = useRemoveCourseMutation();

@@ -8,6 +8,8 @@ import React, { useEffect, useState } from 'react'
 import Course from './Course'
 import { useLoadUserQuery, useUpdateUserMutation } from '@/features/api/authApi'
 import { toast } from 'sonner'
+import { useGetCreatorCourseQuery } from '@/features/api/courseApi'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 const Profile = () => {
 	const { data, isLoading, refetch } = useLoadUserQuery();
@@ -45,6 +47,9 @@ const Profile = () => {
 			toast.error(isError.message || "Error Updating Profile");
 		}
 	}, [isError, updateUserData, isSuccess])
+	// console.log(user);
+
+	const { data: createdCourseData, isLoading: createdCourseLoading, refetch: createdCourseRefetch } = useGetCreatorCourseQuery();
 
 	if (isLoading) return <><h1>Profile is Loading...</h1></>
 	return (
@@ -125,17 +130,40 @@ const Profile = () => {
 					</Dialog>
 				</div>
 			</div>
-			<div>
-				<h1 className='font-medium text-lg'>Courses you're enrolled in</h1>
-				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-5'>
-					{
-						user.enrolledCourses.length === 0 ? (
-							<h1>You have not enrolled in any course</h1>
-						) : (
-							user.enrolledCourses.map((course) => <Course course={course} key={course._id} />)
-						)
-					}
-				</div>
+			<div className='flex flex-col gap-2'>
+				<Card>
+					<CardHeader className='font-medium text-xl py-2'>Courses you're enrolled in</CardHeader>
+					<CardContent className='pb-2'>
+						{
+							user.enrolledCourses.length === 0 ? (
+								<h1>You have not enrolled in any course</h1>
+							) : (<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
+								{
+									user.enrolledCourses.map((course) => <Course course={course} key={course._id} />)
+								}
+							</div>
+							)
+						}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className='font-medium text-xl py-2'>
+						Courses you've created
+					</CardHeader>
+					<CardContent className='pb-2'>
+						{
+							createdCourseLoading ? (<><p>Loading Courses...</p></>) :
+								createdCourseData?.courses?.length === 0 ? (
+									<h1>You have not created any courses</h1>
+								) : (<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-5'>
+									{
+										createdCourseData?.courses?.map((course) => <Course course={course} key={course._id} />)
+									}
+								</div>
+								)
+						}
+					</CardContent>
+				</Card>
 			</div>
 		</div>
 	)
