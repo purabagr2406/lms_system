@@ -109,7 +109,7 @@ const CourseDetail = () => {
 					</div>
 					<div className="text-[#f9f9fb] underline bold font-extrabold flex gap-5 flex-row">
 						<Avatar>
-							<AvatarImage src={user?.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
+							<AvatarImage src={course?.creator.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
 							<AvatarFallback>CN</AvatarFallback>
 						</Avatar>
 						<p>{course?.creator.name}</p>
