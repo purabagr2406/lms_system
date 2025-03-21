@@ -15,20 +15,23 @@ const Course = ({ course }) => {
 				</div>
 				<CardContent className="px-5 py-4 space-y-3">
 					<h1 className='hover:underline font-bold text-lg truncate'>{course.courseTitle}</h1>
-					<div className='flex items-center justify-between'>
-						<div className='flex items-center gap-3'>
-							<Avatar className="h-8 w-8">
-								<AvatarImage src={course.creator?.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
-								<AvatarFallback>CN</AvatarFallback>
-							</Avatar>
-							<h1 className='font-medium text-sm'>{course.creator?.name}</h1>
-						</div>
+					<div className='flex items-center gap-2'>
 						<Badge className={'bg-blue-600 text-white px-2 py-1 text-xs rounded-full'}>
+							{course.category}
+						</Badge>
+						<Badge className={`${course.courseLevel === "Beginner" ? ("bg-green-600") : (course.courseLevel === "Medium" ? ("bg-yellow-600") : ("bg-red-600"))} text-white px-2 py-1 text-xs rounded-full`}>
 							{course.courseLevel}
 						</Badge>
 					</div>
 					<div className='text-lg font-bold'>
-						<span>{course.Price}</span>
+						<span>{course.coursePrice}</span>
+					</div>
+					<div className='flex items-center gap-3'>
+						<Avatar className="h-8 w-8">
+							<AvatarImage src={course.creator?.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
+							<AvatarFallback>CN</AvatarFallback>
+						</Avatar>
+						<h1 className='font-medium text-sm'>{course.creator?.name}</h1>
 					</div>
 				</CardContent>
 			</Card>
