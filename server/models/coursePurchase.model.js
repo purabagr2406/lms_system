@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const coursePurchaseSchema = new mongoose.Schema({
     courseId:{
         type:mongoose.Schema.Types.ObjectId,
@@ -17,14 +16,17 @@ const coursePurchaseSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['pending' , 'completed' , 'failed'],
+        enum:['pending', 'completed', 'failed'],
         default:'pending'
     },
     paymentId:{
         type:String,
         required:true
-    }
-
+    },
+    creatorId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Creator',
+        required:true
+    },
 },{timestamps:true});
-
-export const CoursePurchase = mongoose.model('CoursePurchase' , coursePurchaseSchema);
+export const CoursePurchase = mongoose.model('CoursePurchase', coursePurchaseSchema);

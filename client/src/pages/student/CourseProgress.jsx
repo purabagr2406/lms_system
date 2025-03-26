@@ -95,15 +95,14 @@ const CourseProgress = () => {
 					)}
 				</Button>
 			</div>
-
 			<div className="flex flex-col md:flex-row gap-6">
 				{/* Video section  */}
 				<div className="flex-1 md:w-3/5 h-fit rounded-lg shadow-lg">
-					<div>
+					<div className="overflow-hidden">
 						<video
 							src={currentLecture?.videoUrl || initialLecture.videoUrl}
 							controls
-							className="w-full h-auto md:rounded-lg"
+							className="w-full h-auto md:rounded-lg max-h-96"
 							onPlay={() =>
 								handleLectureProgress(currentLecture?._id || initialLecture._id)
 							}
