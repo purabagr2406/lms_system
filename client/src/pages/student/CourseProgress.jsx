@@ -17,7 +17,7 @@ const CourseProgress = () => {
 	const courseId = params.courseId;
 	const { data, isLoading, isError, refetch } =
 		useGetCourseProgressQuery(courseId);
-
+	console.log(data);
 	const [updateLectureProgress] = useUpdateLectureProgressMutation();
 	const [
 		completeCourse,
@@ -35,12 +35,15 @@ const CourseProgress = () => {
 			refetch();
 			toast.success(markCompleteData.message);
 		}
+	}, [completedSuccess]);
+	useEffect(() => {
+		console.log(markInCompleteData);
+
 		if (inCompletedSuccess) {
 			refetch();
 			toast.success(markInCompleteData.message);
 		}
-	}, [completedSuccess, inCompletedSuccess]);
-
+	}, [inCompletedSuccess]);
 	const [currentLecture, setCurrentLecture] = useState(null);
 
 	if (isLoading) return <p>Loading...</p>;
@@ -56,7 +59,7 @@ const CourseProgress = () => {
 		currentLecture || (courseDetails.lectures && courseDetails.lectures[0]);
 
 	const isLectureCompleted = (lectureId) => {
-		return progress.some((prog) => prog.lectureId === lectureId && prog.viewed);
+		return data?.data?.progress.find(lecture => lecture.lectureId === lectureId).viewed;
 	};
 
 	const handleLectureProgress = async (lectureId) => {
@@ -78,7 +81,7 @@ const CourseProgress = () => {
 	};
 
 	return (
-		<div className="max-w-7xl mx-4 p-4">
+		<div className="max-w-7xl mx-4 p-4 my-20">
 			{/* Display course name  */}
 			<div className="flex justify-between mb-4">
 				<h1 className="text-2xl font-bold">{courseTitle}</h1>

@@ -69,14 +69,14 @@ export const courseProgressApi = createApi({
       query: ({ courseId, lectureId }) => ({
         url: `/${courseId}/lecture/${lectureId}/view`,
         method: "POST",
-        body: {}, // Add required payload if needed
+        // body: {}, // Add required payload if needed
       }),
     }),
     completeCourse: builder.mutation({
       query: (courseId) => ({
         url: `/${courseId}/complete`,
         method: "POST",
-        body: {}, // Add required payload if needed
+        // body: {}, // Add required payload if needed
       }),
     }),
     inCompleteCourse: builder.mutation({
