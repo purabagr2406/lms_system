@@ -42,7 +42,7 @@ const Navbar = () => {
 				<div className="flex items-center gap-2">
 					<Link to="/" className='flex flex-row gap-2'>
 						<School size={"30"} />
-						<h1 className="hidden md:block font-extrabold text-2xl">E-learning</h1>
+						<h1 className="hidden md:block font-extrabold text-2xl">ZESTARA</h1>
 					</Link>
 				</div>
 				{/* user icons and darkmode  icon*/}
@@ -86,7 +86,7 @@ const Navbar = () => {
 			{/* Mobile */}
 			<div className='flex md:hidden items-center justify-between px-4 h-full'>
 				<Link to="/" className='flex flex-row gap-2'>
-					<h1 className="font-extrabold text-2xl">E-learning</h1>
+					<h1 className="font-extrabold text-2xl">ZESTARA</h1>
 				</Link>
 				<MobileNavbar user={user} />
 			</div>
@@ -110,7 +110,7 @@ const MobileNavbar = ({ user }) => {
 			<SheetContent className="flex flex-col">
 				<SheetHeader className="flex flex-row item-center justify-between mt-2">
 					<Link to="/" className='flex flex-row gap-2'>
-						<SheetTitle>E-Learning</SheetTitle>
+						<SheetTitle>ZESTARA</SheetTitle>
 					</Link>
 					<DarkMode />
 				</SheetHeader>

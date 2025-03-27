@@ -54,7 +54,23 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
+  		},
+		  keyframes: {
+			typing: {
+			  "0%": { width: "0" }, 
+			  "100%": { width: "100%" }, 
+			},
+			blink: {
+			  "50%": { borderColor: "transparent" }, 
+			},
+			cursorOff: {
+			  "0%": { borderColor: "white" }, 
+			  "100%": { borderColor: "transparent" }, 
+			},
+		  },
+		  animation: {
+			typing: "typing 3s steps(25, end) forwards, blink 0.7s steps(2, start) infinite, cursorOff 0.1s forwards 3s",
+		  },
   	}
   },
   plugins: [require("tailwindcss-animate")],
