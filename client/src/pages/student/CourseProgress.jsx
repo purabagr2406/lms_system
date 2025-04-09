@@ -21,24 +21,32 @@ const CourseProgress = () => {
   const [updateLectureProgress] = useUpdateLectureProgressMutation();
   const [
     completeCourse,
-    { data: markCompleteData, isSuccess: completedSuccess },
+    {
+      data: markCompleteData,
+      isSuccess: completedSuccess,
+      isLoading: completeLoading,
+    },
   ] = useCompleteCourseMutation();
   const [
     inCompleteCourse,
-    { data: markInCompleteData, isSuccess: inCompletedSuccess },
+    {
+      data: markInCompleteData,
+      isSuccess: inCompletedSuccess,
+      isLoading: inCompleteLoading,
+    },
   ] = useInCompleteCourseMutation();
 
   useEffect(() => {
     // console.log(markCompleteData);
     if (completedSuccess) {
-      refetch();
       toast.success(markCompleteData.message);
+      refetch();
     }
   }, [completedSuccess]);
   useEffect(() => {
     if (inCompletedSuccess) {
-      refetch();
       toast.success(markInCompleteData.message);
+      refetch();
     }
   }, [inCompletedSuccess]);
 
@@ -69,7 +77,6 @@ const CourseProgress = () => {
     setCurrentLecture(lecture);
     handleLectureProgress(lecture._id);
   };
-
 
   const handleCompleteCourse = async () => {
     await completeCourse(courseId);
@@ -169,4 +176,3 @@ const CourseProgress = () => {
 };
 
 export default CourseProgress;
-
