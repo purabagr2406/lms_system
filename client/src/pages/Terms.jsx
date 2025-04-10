@@ -2,7 +2,7 @@ import React from "react";
 
 const Terms = () => {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 pt-28 px-4 sm:px-8 max-w-5xl mx-auto">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 pt-4 px-16 sm:px-16 w-screen mt-16 ">
       <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center">
         Terms & Conditions
       </h1>
@@ -95,7 +95,7 @@ const Terms = () => {
         📞 +91 98765 43210
       </p>
 
-      <p className="text-center text-sm mt-12 text-gray-500 dark:text-gray-400">
+      <p className="text-center text-sm mt-6 text-gray-500 dark:text-gray-400">
         Last updated: April 2025
       </p>
     </div>
