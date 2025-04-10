@@ -4,7 +4,7 @@ import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Link } from 'react-router-dom'
-
+import userImage from '../../assets/default-avatar-profile-icon-of-social-media-user-vector.jpg';
 const Course = ({ course }) => {
 	return (
 		<Link to={`/course-detail/${course._id}`}>
@@ -28,8 +28,8 @@ const Course = ({ course }) => {
 					</div>
 					<div className='flex items-center gap-3'>
 						<Avatar className="h-8 w-8">
-							<AvatarImage src={course.creator?.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
-							<AvatarFallback>CN</AvatarFallback>
+							<AvatarImage src={course.creator?.photoUrl} alt="@shadcn" />
+							<AvatarFallback><img className="w-[140%] max-w-xl" src={userImage}></img></AvatarFallback>
 						</Avatar>
 						<h1 className='font-medium text-sm'>{course.creator?.name}</h1>
 					</div>

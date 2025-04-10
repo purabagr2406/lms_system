@@ -10,6 +10,7 @@ import { useLoadUserQuery, useUpdateUserMutation } from '@/features/api/authApi'
 import { toast } from 'sonner'
 import { useGetCreatorCourseQuery } from '@/features/api/courseApi'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import userImage from '../../assets/default-avatar-profile-icon-of-social-media-user-vector.jpg';
 
 const Profile = () => {
 	const { data, isLoading, refetch } = useLoadUserQuery();
@@ -60,8 +61,8 @@ const Profile = () => {
 			<div className='flex flex-col md:flex-row items-center md:items-start gap-8 my-5'>
 				<div className='flex flex-col items-center'>
 					<Avatar className="h-24 w-24 md:h-32 md:w-32 mb-4">
-						<AvatarImage src={user?.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
-						<AvatarFallback>CN</AvatarFallback>
+						<AvatarImage src={user?.photoUrl || userImage} alt="@shadcn" />
+						<AvatarFallback><img className="w-[140%] max-w-xl" src={userImage}></img></AvatarFallback>
 					</Avatar>
 				</div>
 				<div>

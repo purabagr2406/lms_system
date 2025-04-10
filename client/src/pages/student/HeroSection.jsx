@@ -14,7 +14,7 @@ const HeroSection = () => {
 		setSearchQuery("");
 	}
 	return (
-		<div className='relative z-10 bg-gradient-to-r from-blue-500 to bg-indigo-600 dark:from-gray-800 dark:to-gray-900 p-4 text-center rounded-sm mt-16'>
+		<div className='relative z-10 bg-gradient-to-r from-blue-500 to bg-indigo-600 dark:from-gray-800 dark:to-gray-900 p-4 text-center rounded-b-sm mt-16'>
 			<div className='max-w-3xl mx-auto'>
 			<h1 className="text-white text-4xl font-bold mb-4 inline-block overflow-hidden whitespace-nowrap w-[25ch] border-r-4 border-white animate-typing">Learn Beyond Boundaries, Learn with Zest!</h1>
 

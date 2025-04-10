@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const CourseProgress = () => {
+	const [completedCourses, setCompletedCourses] = useState(0);
   const params = useParams();
   const courseId = params.courseId;
   const { data, isLoading, isError, refetch } =
@@ -90,13 +91,18 @@ const CourseProgress = () => {
       {/* Display course name  */}
       <div className="flex justify-between mb-4">
         <h1 className="text-2xl font-bold">{courseTitle}</h1>
+				<Badge>
+					<p>
+						{}
+					</p>
+				</Badge>
         <Button
           onClick={completed ? handleInCompleteCourse : handleCompleteCourse}
           variant={completed ? "outline" : "default"}
         >
           {completed ? (
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 mr-2" /> <span>Completed</span>{" "}
+              <span>Reset Progress</span>{" "}
             </div>
           ) : (
             "Mark as completed"
