@@ -17,34 +17,43 @@ const CourseProgress = () => {
   const courseId = params.courseId;
   const { data, isLoading, isError, refetch } =
     useGetCourseProgressQuery(courseId);
-  console.log(data);
+
   const [updateLectureProgress] = useUpdateLectureProgressMutation();
   const [
     completeCourse,
-    { data: markCompleteData, isSuccess: completedSuccess },
+    {
+      data: markCompleteData,
+      isSuccess: completedSuccess,
+      isLoading: completeLoading,
+    },
   ] = useCompleteCourseMutation();
   const [
     inCompleteCourse,
-    { data: markInCompleteData, isSuccess: inCompletedSuccess },
+    {
+      data: markInCompleteData,
+      isSuccess: inCompletedSuccess,
+      isLoading: inCompleteLoading,
+    },
   ] = useInCompleteCourseMutation();
 
   useEffect(() => {
-    console.log(markCompleteData);
-
+    // console.log(markCompleteData);
     if (completedSuccess) {
-      refetch();
       toast.success(markCompleteData.message);
+      refetch();
     }
   }, [completedSuccess]);
   useEffect(() => {
-    console.log(markInCompleteData);
-
     if (inCompletedSuccess) {
-      refetch();
       toast.success(markInCompleteData.message);
+      refetch();
     }
   }, [inCompletedSuccess]);
+
   const [currentLecture, setCurrentLecture] = useState(null);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Failed to load course details</p>;
 
   console.log(data);
 
@@ -56,7 +65,7 @@ const CourseProgress = () => {
     currentLecture || (courseDetails.lectures && courseDetails.lectures[0]);
 
   const isLectureCompleted = (lectureId) => {
-    return progress.find((lecture) => lecture.lectureId === lectureId).viewed;
+    return progress.some((prog) => prog.lectureId === lectureId && prog.viewed);
   };
 
   const handleLectureProgress = async (lectureId) => {
@@ -75,10 +84,9 @@ const CourseProgress = () => {
   const handleInCompleteCourse = async () => {
     await inCompleteCourse(courseId);
   };
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Failed to load course details</p>;
+
   return (
-    <div className="max-w-7xl mx-4 p-4 my-20">
+    <div className="max-w-7xl p-4 my-20">
       {/* Display course name  */}
       <div className="flex justify-between mb-4">
         <h1 className="text-2xl font-bold">{courseTitle}</h1>
@@ -98,11 +106,11 @@ const CourseProgress = () => {
       <div className="flex flex-col md:flex-row gap-6">
         {/* Video section  */}
         <div className="flex-1 md:w-3/5 h-fit rounded-lg shadow-lg">
-          <div className="overflow-hidden">
+          <div>
             <video
               src={currentLecture?.videoUrl || initialLecture.videoUrl}
               controls
-              className="w-full h-auto md:rounded-lg max-h-96"
+              className="w-full h-auto md:rounded-lg"
               onPlay={() =>
                 handleLectureProgress(currentLecture?._id || initialLecture._id)
               }
