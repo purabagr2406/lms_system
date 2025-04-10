@@ -71,18 +71,19 @@ const CourseProgress = () => {
 		return progress.some((prog) => prog.lectureId === lectureId && prog.viewed);
 	};
 
-	const handleLectureProgress = async (lectureId) => {
-		await updateLectureProgress({ courseId, lectureId });
+	const handleLectureProgress = async (lectureId, viewed) => {
+		await updateLectureProgress({ courseId, lectureId, viewed });
 		refetch();
-		;
 	};
 	// Handle select a specific lecture to watch
 	const handleSelectLecture = (lecture) => {
 		setCurrentLecture(lecture);
-		handleLectureProgress(lecture._id);
+		handleLectureProgress(lecture._id, false);
 		// ;
 	};
-
+	const handleMarkLecture = (lecture) => {
+		handleLectureProgress(lecture._id, progress.some((prog) => prog.lectureId === lecture._id && prog.viewed));
+	}
 	const handleCompleteCourse = async () => {
 		await completeCourse(courseId);
 		;
@@ -146,7 +147,7 @@ const CourseProgress = () => {
 					<div className="flex flex-col overflow-y-auto gap-2">
 						{courseDetails?.lectures.map((lecture) => (
 							<div className="flex flex-row items-center">
-								<div className="cursor-pointer p-4">
+								<div className="cursor-pointer p-4" onClick={() => handleMarkLecture(lecture)}>
 									{isLectureCompleted(lecture._id) ? (
 										<CheckCircle2 size={24} className="text-green-500" />
 									) : (

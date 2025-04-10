@@ -48,6 +48,7 @@ export const updateLectureProgress = async (req, res) => {
   try {
     const { courseId, lectureId } = req.params;
     const userId = req.id;
+		const { viewed } = req.body;
 
     // fetch or create course progress
     let courseProgress = await CourseProgress.findOne({ courseId, userId });
@@ -69,12 +70,12 @@ export const updateLectureProgress = async (req, res) => {
 
     if (lectureIndex !== -1) {
       // if lecture already exist, update its status
-      courseProgress.lectureProgress[lectureIndex].viewed = true;
+      courseProgress.lectureProgress[lectureIndex].viewed = viewed ? false : true;
     } else {
       // Add new lecture progress
       courseProgress.lectureProgress.push({
         lectureId,
-        viewed: true,
+        viewed: viewed ? false : true,
       });
     }
 

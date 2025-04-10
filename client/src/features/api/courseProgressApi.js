@@ -66,10 +66,10 @@ export const courseProgressApi = createApi({
       }),
     }),
     updateLectureProgress: builder.mutation({
-      query: ({ courseId, lectureId }) => ({
+      query: ({ courseId, lectureId, viewed }) => ({
         url: `/${courseId}/lecture/${lectureId}/view`,
         method: "POST",
-        // body: {}, // Add required payload if needed
+        body: {viewed}, // Add required payload if needed
       }),
     }),
     completeCourse: builder.mutation({
