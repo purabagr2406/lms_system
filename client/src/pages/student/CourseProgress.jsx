@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const CourseProgress = () => {
-	
+
 	const params = useParams();
 	const courseId = params.courseId;
 	const { data, isLoading, isError, refetch } =
@@ -97,7 +97,7 @@ const CourseProgress = () => {
 			<div className="flex justify-between mb-4">
 				<div className="flex flex-row gap-2">
 					<h1 className="text-2xl font-bold">{courseTitle}</h1>
-					<Badge>
+					<Badge className={`bg-${completed ? "green" : "yellow"}-600 text-white`}>
 						{progress.filter((lecture) => lecture.viewed).length} / {progress.length}
 					</Badge>
 				</div>
@@ -111,7 +111,7 @@ const CourseProgress = () => {
 							<span>Reset Progress</span>{" "}
 						</div>
 					) : (
-						"Mark as completed"
+						"Mark all as completed"
 					)}
 				</Button>
 			</div>
@@ -143,39 +143,45 @@ const CourseProgress = () => {
 				{/* Lecture Sidebar  */}
 				<div className="flex flex-col w-full md:w-2/5 border-t md:border-t-0 md:border-l border-gray-200 md:pl-4 pt-4 md:pt-0">
 					<h2 className="font-semibold text-xl mb-4">Course Lecture</h2>
-					<div className="flex-1 overflow-y-auto">
+					<div className="flex flex-col overflow-y-auto gap-2">
 						{courseDetails?.lectures.map((lecture) => (
-							<Card
-								key={lecture._id}
-								className={`mb-3 hover:cursor-pointer transition transform ${lecture._id === currentLecture?._id
-									? "bg-gray-200 dark:dark:bg-gray-800"
-									: ""
-									} `}
-								onClick={() => handleSelectLecture(lecture)}
-							>
-								<CardContent className="flex items-center justify-between p-4">
-									<div className="flex items-center">
-										{isLectureCompleted(lecture._id) ? (
-											<CheckCircle2 size={24} className="text-green-500 mr-2" />
-										) : (
-											<CirclePlay size={24} className="text-gray-500 mr-2" />
-										)}
-										<div>
-											<CardTitle className="text-lg font-medium">
-												{lecture.lectureTitle}
-											</CardTitle>
-										</div>
-									</div>
-									{isLectureCompleted(lecture._id) && (
-										<Badge
-											variant={"outline"}
-											className="bg-green-200 text-green-600"
-										>
-											Completed
-										</Badge>
+							<div className="flex flex-row items-center">
+								<div className="cursor-pointer p-4">
+									{isLectureCompleted(lecture._id) ? (
+										<CheckCircle2 size={24} className="text-green-500" />
+									) : (
+										<CirclePlay size={24} className="text-blue-500" />
 									)}
-								</CardContent>
-							</Card>
+								</div>
+
+								<Card
+									key={lecture._id}
+									className={`hover:cursor-pointer transition transform ${lecture._id === currentLecture?._id
+										? "bg-gray-200 dark:dark:bg-gray-800"
+										: ""
+										} w-full `}
+									onClick={() => handleSelectLecture(lecture)}
+								>
+									<CardContent className="flex items-center justify-between p-4">
+										<div className="flex items-center">
+
+											<div>
+												<CardTitle className="text-lg font-medium">
+													{lecture.lectureTitle}
+												</CardTitle>
+											</div>
+										</div>
+										{isLectureCompleted(lecture._id) && (
+											<Badge
+												variant={"outline"}
+												className="bg-green-200 text-green-600"
+											>
+												Completed
+											</Badge>
+										)}
+									</CardContent>
+								</Card>
+							</div>
 						))}
 					</div>
 				</div>
