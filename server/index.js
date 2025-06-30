@@ -25,8 +25,20 @@ app.use(cookieParser());
 //     origin:"http:///localhost:8080",
 //     credentials:true,
 // }))
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:5174"
+].filter(Boolean); // remove undefined
 app.use(cors({
-	origin: [process.env.FRONTEND_URL, "http://localhost:5173", "http://localhost:5174"], // Adjust to match your frontend's URL
+	origin: function (origin, callback) {
+    // Allow requests with no origin (like Postman) or if origin is in whitelist
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }, // Adjust to match your frontend's URL
 	credentials: true, // Allow cookies & authentication headers
 	methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed HTTP methods
 	allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers

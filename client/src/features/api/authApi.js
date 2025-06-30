@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggedIn, userLoggedOut } from "../authSlice";
 
-const USER_API = "https://zestara-server-kqfw.onrender.com/api/v1/user/" ||  "http://localhost:8080/api/v1/user";// some base user api from postman
+const USER_API = ["https://zestara-server-kqfw.onrender.com/api/v1/user/", "http://localhost:8080/api/v1/user/"];// some base user api from postman
 export const authApi = createApi({
 	reducerPath: "authApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: USER_API,  // end point of api
+		baseUrl: USER_API[0],  // end point of api
 		credentials: 'include'
 	}),
 	endpoints: (builder) => ({

@@ -46,12 +46,12 @@
 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_PROGRESS_API = "https://zestara-server-kqfw.onrender.com/api/v1/progress" ||  "http://localhost:8080/api/v1/user";
+const COURSE_PROGRESS_API = ["https://zestara-server-kqfw.onrender.com/api/v1/progress", "http://localhost:8080/api/v1/progress"];
 
 export const courseProgressApi = createApi({
   reducerPath: "courseProgressApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: COURSE_PROGRESS_API,
+    baseUrl: COURSE_PROGRESS_API[0],
     credentials: "include",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");

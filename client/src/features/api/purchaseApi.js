@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_PURCHASE_API = "https://zestara-server-kqfw.onrender.com/api/v1/purchase" ||  "http://localhost:8080/api/v1/user";
+const COURSE_PURCHASE_API = ["https://zestara-server-kqfw.onrender.com/api/v1/purchase", "http://localhost:8080/api/v1/purchase"];
 
 export const purchaseApi = createApi({
   reducerPath: "purchaseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: COURSE_PURCHASE_API,
+    baseUrl: COURSE_PURCHASE_API[0],
     credentials: "include",
   }),
   endpoints: (builder) => ({
