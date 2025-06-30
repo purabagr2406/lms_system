@@ -46,7 +46,7 @@
 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_PROGRESS_API = "https://zestara-server-kqfw.onrender.com/api/v1/progress";
+const COURSE_PROGRESS_API = "https://zestara-server-kqfw.onrender.com/api/v1/progress" ||  "http://localhost:8080/api/v1/user";
 
 export const courseProgressApi = createApi({
   reducerPath: "courseProgressApi",
