@@ -28,7 +28,8 @@ app.use(cookieParser());
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   "http://localhost:5173",
-  "http://localhost:5174"
+  "http://localhost:5174",
+	"https://zestara-server-kqfw.onrender.com", // Add your production frontend URL here
 ].filter(Boolean); // remove undefined
 app.use(cors({
 	origin: function (origin, callback) {
