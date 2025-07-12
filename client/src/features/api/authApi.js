@@ -5,7 +5,7 @@ const USER_API = ["https://zestara-server-kqfw.onrender.com/api/v1/user/", "http
 export const authApi = createApi({
 	reducerPath: "authApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: USER_API[1],  // end point of api
+		baseUrl: USER_API[0],  // end point of api
 		credentials: 'include'
 	}),
 	endpoints: (builder) => ({
