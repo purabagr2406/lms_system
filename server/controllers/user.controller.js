@@ -22,16 +22,16 @@ export const register = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, 10);
 
-		await User.create({
+		const newUser = await User.create({
 			name,
 			email,
 			password: hashedPassword
 		});
-
-		return res.status(201).json({
-			success: true,
-			message: "Accout created successfully."
-		})
+		generateToken(res, newUser, "Account created successfully.");
+		// return res.status(201).json({
+		// 	success: true,
+		// 	message: "Accout created successfully."
+		// })
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
@@ -76,6 +76,7 @@ export const login = async (req, res) => {
 
 export const logout = async (_, res) => {
 	try {
+		generateToken(res, null, "Logged out successfully.");
 		return res.status(200).cookie("token", "", { maxAge: 0 }).json({
 			message: "Logged out successfully.",
 			success: true
@@ -99,6 +100,7 @@ export const getUserProfile = async (req, res) => {
 				success: false
 			})
 		}
+		generateToken(res, user, "Profile loaded successfully.");
 		return res.status(200).json({
 			success: true,
 			user
@@ -137,7 +139,7 @@ export const updateProfile = async (req, res) => {
 
 		const updatedData = { name, photoUrl };
 		const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true }).select("-password");
-
+		generateToken(res, updatedUser, "Profile updated successfully.");
 		return res.status(200).json({
 			success: true,
 			user: updatedUser,

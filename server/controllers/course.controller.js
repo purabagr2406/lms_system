@@ -1,6 +1,7 @@
 import { Course } from "../models/course.model.js";
 import { Lecture } from "../models/lecture.model.js";
 import { deleteMediaFromCloudinary, uploadMedia, deleteVideoFromVloudinary } from "../utils/cloudinary.js";
+import { generateToken } from "../utils/generateToken.js";
 
 export const createCourse = async (req, res) => {
 	try {
@@ -16,11 +17,11 @@ export const createCourse = async (req, res) => {
 			category,
 			creator: req.id
 		});
-
-		return res.status(201).json({
-			course,
-			message: "Course created."
-		})
+		generateToken(res, course, "Course created successfully.");
+		// return res.status(201).json({
+		// 	course,
+		// 	message: "Course created."
+		// })
 	} catch (error) {
 		console.log(error);
 
@@ -33,17 +34,17 @@ export const createCourse = async (req, res) => {
 
 export const searchCourse = async (req, res) => {
 	try {
-        const { query = "", sortByPrice = "" } = req.query;
-        let categories = req.query.categories;
+		const { query = "", sortByPrice = "" } = req.query;
+		let categories = req.query.categories;
 
-        // Ensure categories is an array
-        if (typeof categories === "string") {
-            categories = [categories]; // Convert single category string to array
-        } else if (!Array.isArray(categories)) {
-            categories = []; // Default to empty array if undefined
-        }
+		// Ensure categories is an array
+		if (typeof categories === "string") {
+			categories = [categories]; // Convert single category string to array
+		} else if (!Array.isArray(categories)) {
+			categories = []; // Default to empty array if undefined
+		}
 
-        console.log("Categories received:", categories);
+		console.log("Categories received:", categories);
 
 		const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape special regex characters
 
@@ -55,34 +56,34 @@ export const searchCourse = async (req, res) => {
 			]
 		};
 
-        // Apply category filtering correctly
-        if (categories.length > 0) {
-            searchCriteria.category = { $in: categories.map(cat => new RegExp(cat, "i")) };
-        } else {
-            searchCriteria.$or.push({ category: { $regex: query, $options: "i" } });
-        }
+		// Apply category filtering correctly
+		if (categories.length > 0) {
+			searchCriteria.category = { $in: categories.map(cat => new RegExp(cat, "i")) };
+		} else {
+			searchCriteria.$or.push({ category: { $regex: query, $options: "i" } });
+		}
 
-        // Define sorting order
-        const sortOptions = {};
-        if (sortByPrice === "low") {
-            sortOptions.coursePrice = 1; // Sort by price in ascending order
-        } else if (sortByPrice === "high") {
-            sortOptions.coursePrice = -1; // Sort by price in descending order
-        }
+		// Define sorting order
+		const sortOptions = {};
+		if (sortByPrice === "low") {
+			sortOptions.coursePrice = 1; // Sort by price in ascending order
+		} else if (sortByPrice === "high") {
+			sortOptions.coursePrice = -1; // Sort by price in descending order
+		}
 
-        let courses = await Course.find(searchCriteria)
-            .populate({ path: "creator", select: "name photoUrl" })
-            .sort(sortOptions);
+		let courses = await Course.find(searchCriteria)
+			.populate({ path: "creator", select: "name photoUrl" })
+			.sort(sortOptions);
+		generateToken(res, courses, "Courses fetched successfully.");
+		return res.status(200).json({
+			success: true,
+			courses: courses || []
+		});
 
-        return res.status(200).json({
-            success: true,
-            courses: courses || []
-        });
-
-    } catch (error) {
-        console.error("Error in searchCourse:", error);
-        return res.status(500).json({ success: false, message: "Server error" });
-    }
+	} catch (error) {
+		console.error("Error in searchCourse:", error);
+		return res.status(500).json({ success: false, message: "Server error" });
+	}
 };
 
 export const getPublishedCourse = async (_, res) => {
@@ -93,7 +94,7 @@ export const getPublishedCourse = async (_, res) => {
 				message: "Course not found"
 			})
 		}
-
+		generateToken(res, courses, "Published courses fetched successfully.");
 		return res.status(200).json({
 			courses,
 		})
@@ -116,10 +117,11 @@ export const getCreatorCourses = async (req, res) => {
 				message: "Course not found"
 			})
 		};
+		generateToken(res, courses, "Creator courses fetched successfully.");
 		return res.status(200).json({
 			courses,
 		})
-
+		
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
@@ -154,7 +156,7 @@ export const editCourse = async (req, res) => {
 		const updateData = { courseTitle, subTitle, description, category, courseLevel, coursePrice, courseThumbnail: courseThumbnail?.secure_url };
 
 		course = await Course.findByIdAndUpdate(courseId, updateData, { new: true });
-
+		generateToken(res, course, "Course updated successfully.");
 		return res.status(200).json({
 			course,
 			message: "Course updated successfully."
@@ -179,6 +181,7 @@ export const getCourseById = async (req, res) => {
 				message: "Course not found!"
 			})
 		}
+		generateToken(res, course, "Course fetched successfully.");
 		return res.status(200).json({
 			course
 		})
@@ -216,6 +219,7 @@ export const removeCourse = async (req, res) => {
 				})
 			}
 		}
+		generateToken(res, null, "Course removed successfully.");
 		return res.status(200).json({
 			message: "Course removed successfully"
 		})
@@ -247,7 +251,7 @@ export const createLecture = async (req, res) => {
 			course.lectures.push(lecture._id);
 			await course.save();
 		}
-
+		generateToken(res, lecture, "Lecture created successfully.");
 		return res.status(201).json({
 			lecture,
 			message: "Lecture created successfully."
@@ -270,7 +274,7 @@ export const getCourseLecture = async (req, res) => {
 				message: "Course not found"
 			})
 		}
-
+		generateToken(res, course.lectures, "Lectures fetched successfully.");
 		return res.status(200).json({
 			lectures: course.lectures
 		});
@@ -310,7 +314,7 @@ export const editLecture = async (req, res) => {
 			console.log("lecture added to course");
 			await course.save();
 		}
-
+		generateToken(res, lecture, "Lecture updated successfully.");
 		return res.status(200).json({
 			lecture,
 			message: "Lecture updated successfully."
@@ -342,7 +346,7 @@ export const removeLecture = async (req, res) => {
 			{ lectures: lectureId },
 			{ $pull: { lectures: lectureId } } // remove lecture
 		);
-
+		generateToken(res, null, "Lecture removed successfully.");
 		return res.status(200).json({
 			message: "Lecture removed successfully"
 		})
@@ -363,7 +367,7 @@ export const getLectureById = async (req, res) => {
 				message: "Lecture not found"
 			});
 		}
-
+		generateToken(res, lecture, "Lecture fetched successfully.");
 		return res.status(200).json({
 			lecture
 		})
@@ -394,6 +398,7 @@ export const togglePublishCourse = async (req, res) => {
 		await course.save();
 
 		const statusMessage = course.isPublished ? "Published" : "Unpublished";
+		generateToken(res, course, `Course is ${statusMessage}`);
 		return res.status(200).json({
 			message: `Course is ${statusMessage}`
 		});

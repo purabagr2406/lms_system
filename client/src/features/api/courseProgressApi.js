@@ -51,7 +51,7 @@ const COURSE_PROGRESS_API = ["https://zestara-server-kqfw.onrender.com/api/v1/pr
 export const courseProgressApi = createApi({
   reducerPath: "courseProgressApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: COURSE_PROGRESS_API[0],
+    baseUrl: COURSE_PROGRESS_API[1],
     credentials: "include",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");

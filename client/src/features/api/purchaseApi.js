@@ -5,7 +5,7 @@ const COURSE_PURCHASE_API = ["https://zestara-server-kqfw.onrender.com/api/v1/pu
 export const purchaseApi = createApi({
   reducerPath: "purchaseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: COURSE_PURCHASE_API[0],
+    baseUrl: COURSE_PURCHASE_API[1],
     credentials: "include",
   }),
   endpoints: (builder) => ({

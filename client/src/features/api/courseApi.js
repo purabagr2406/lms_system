@@ -7,7 +7,7 @@ export const courseApi = createApi({
 	reducerPath: "courseApi",
 	tagTypes: ['Refetch_Creator_Course', 'Refetch_Lecture'],
 	baseQuery: fetchBaseQuery({
-		baseUrl: COURSE_API[0],
+		baseUrl: COURSE_API[1],
 		credentials: 'include'
 	}),
 	endpoints: (builder) => ({
