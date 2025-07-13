@@ -29,7 +29,7 @@ app.use(cookieParser());
 //     credentials:true,
 // }))
 app.use(cors({
-	origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"], // Adjust to match your frontend's URL
+	origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "https://lms-system-x7so.onrender.com"], // Adjust to match your frontend's URL
 	credentials: true, // Allow cookies & authentication headers
 	methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed HTTP methods
 	allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
