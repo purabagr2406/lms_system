@@ -29,7 +29,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import QnA from "./pages/QnA";
-import Terms from "./pages/terms";
+import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 
 const appRouter = createBrowserRouter([
