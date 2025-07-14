@@ -94,11 +94,11 @@ const CourseTable = () => {
 							data?.courses?.map((course) => (
 								<TableRow key={course._id}>
 									<TableCell className="font-medium">{course?.coursePrice || "NA"}</TableCell>
-									<TableCell><Badge className={course.isPublished ? ("bg-green-500") : ("bg-yellow-500")}>{course.isPublished ? "Published" : "Draft"}</Badge></TableCell>
-									<TableCell>{course.courseTitle}</TableCell>
+									<TableCell><Badge className={course?.isPublished ? ("bg-green-500") : ("bg-yellow-500")}>{course?.isPublished ? "Published" : "Draft"}</Badge></TableCell>
+									<TableCell>{course?.courseTitle}</TableCell>
 									<TableCell className="text-right">
-										<Button size='sm' variant='ghost' className="font-bold" onClick={() => navigate(`${course._id}`)}><Edit /></Button>
-										<Button size="sm" variant='ghost' className="font-bold" onClick={() => removeCourseHandler(course._id)}><Trash /></Button>
+										<Button size='sm' variant='ghost' className="font-bold" onClick={() => navigate(`${course?._id}`)}><Edit /></Button>
+										<Button size="sm" variant='ghost' className="font-bold" onClick={() => removeCourseHandler(course?._id)}><Trash /></Button>
 									</TableCell>
 								</TableRow>
 							))
