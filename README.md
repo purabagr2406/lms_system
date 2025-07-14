@@ -1,7 +1,7 @@
 # Welcome to Zestara 👋
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 
-### ✨ [Demo](https://lms-system-x7so.onrender.com/course-detail/67e4290d146ef730023e6a3c)
+### ✨ [Demo](https://lms-system-x7so.onrender.com) 
 
 ## Install
 
