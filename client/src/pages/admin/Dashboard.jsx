@@ -12,10 +12,18 @@ const Dashboard = () => {
 
   const purchasedCourse = data?.purchasedCourses || [];
 
-  const courseData = purchasedCourse.map((course) => ({
+  // const courseData = purchasedCourse.map((course) => ({
+  //   name: course.courseId.courseTitle,
+  //   price: course.courseId.coursePrice,
+  // }));
+
+  const courseData = purchasedCourse
+  .filter(course => course.courseId && course.courseId.courseTitle && course.courseId.coursePrice)
+  .map((course) => ({
     name: course.courseId.courseTitle,
     price: course.courseId.coursePrice,
   }));
+
 
   const totalRevenue = purchasedCourse.reduce(
     (acc, element) => acc + (element.amount || 0),
