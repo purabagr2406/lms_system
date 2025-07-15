@@ -102,8 +102,20 @@ const Navbar = () => {
 export default Navbar
 
 const MobileNavbar = ({ user }) => {
-	// const role = user.role;
+	const { user } = useSelector(store => store.auth);
+	const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
+	const logoutHandler = async () => {
+		await logoutUser();
+	};
 	const navigate = useNavigate();
+	useEffect(() => {
+		if (isSuccess) {
+			toast.success(data.message || "User Logged Out");
+			navigate("/login");
+		}
+	}, [isSuccess]);
+	// const role = user.role;
+	// const navigate = useNavigate();
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
