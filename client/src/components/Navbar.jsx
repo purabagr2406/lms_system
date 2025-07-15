@@ -73,7 +73,6 @@ const Navbar = () => {
 												<Link to="/admin/dashboard"><DropdownMenuItem>Dashboard</DropdownMenuItem></Link></>
 										)
 									}
-
 									<DropdownMenuItem onClick={logoutHandler}>Log Out</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
@@ -115,6 +114,7 @@ const MobileNavbar = ({ user }) => {
 			<SheetContent className="flex flex-col">
 				<SheetHeader className="flex flex-row item-center justify-between mt-2">
 					<Link to="/" className='flex flex-row gap-2'>
+						<School size={"30"} />
 						<SheetTitle>ZESTARA</SheetTitle>
 					</Link>
 					<DarkMode />
@@ -123,7 +123,7 @@ const MobileNavbar = ({ user }) => {
 				<nav className='flex flex-col space-y-4'>
 					<Link to="/my-learning"><span>My Learning</span></Link>
 					<Link to="/profile"><span>Edit Profile</span></Link>
-					<span>Logout</span>
+					<Button onClick={logoutHandler}><span>Log Out</span></Button>
 				</nav>
 				{
 					user?.role === "instructor" && (

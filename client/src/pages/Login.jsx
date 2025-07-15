@@ -55,6 +55,8 @@ const Login = () => {
 	useEffect(() => {
 		if (registerIsSuccess && registerData) {
 			toast.success(registerData.message || "Account Created Successfully");
+			setLoginInput = { email: signupInput.email, password: signupInput.password };
+			handleRegistration("login");
 		}
 		if (registerError) {
 			toast.error(registerError.data.message || "Account could not be created");
@@ -66,7 +68,7 @@ const Login = () => {
 		if (loginError) {
 			toast.error(loginError.data.message || "Login Failed");
 		}
-	}, [loginIsLoading, registerIsLoading, loginData, registerData, loginError, registerError, registerIsSuccess, loginIsSuccess])
+	}, [loginError, registerError, registerIsSuccess, loginIsSuccess])
 	return (
 		<div className="flex items-center w-full justify-center mt-20">
 			<Tabs defaultValue="login" className="w-[400px]">
