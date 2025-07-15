@@ -101,8 +101,8 @@ const Navbar = () => {
 
 export default Navbar
 
-const MobileNavbar = ({ user }) => {
-	const { user } = useSelector(store => store.auth);
+const MobileNavbar = ({user}) => {
+	// const { user } = useSelector(store => store.auth);
 	const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
 	const logoutHandler = async () => {
 		await logoutUser();
