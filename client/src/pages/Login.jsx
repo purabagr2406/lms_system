@@ -55,7 +55,7 @@ const Login = () => {
 	useEffect(() => {
 		if (registerIsSuccess && registerData) {
 			toast.success(registerData.message || "Account Created Successfully");
-			setLoginInput = { email: signupInput.email, password: signupInput.password };
+			setLoginInput({ email: signupInput.email, password: signupInput.password });
 			handleRegistration("login");
 		}
 		if (registerError) {
