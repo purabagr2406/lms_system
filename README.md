@@ -39,6 +39,11 @@ Zestara is a full-featured Learning Management System (LMS) built using the **ME
 
 ---
 
+## 📽️ Demo Video
+
+📥 [Download/Watch Demo Video](https://drive.google.com/file/d/13X0_D7Ju2WQZDonrM6kGVMKeqFHabclg/view?usp=drive_link)
+
+
 ## 💖 Show Your Support
 
 Give a ⭐️ if you liked this project or it helped you learn something!
